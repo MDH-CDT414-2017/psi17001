@@ -70,7 +70,7 @@ permissions and limitations under the License.
       <formatter type="plain" usefile="false"/>
       <batchtest fork="yes"
                  todir="build/test/xml">
-        <fileset dir="BowlingGame/src">
+        <fileset dir="src">
           <include name="**/*Test.java"/>
         </fileset>
       </batchtest>

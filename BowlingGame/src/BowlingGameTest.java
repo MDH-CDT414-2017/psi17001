@@ -114,4 +114,5 @@ public class BowlingGameTest extends TestCase {
         
         assertEquals(110, bowlingGame.getScore());
     }
+	
 }
