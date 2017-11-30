@@ -80,7 +80,8 @@ public class BowlingGame {
 						sum= sum + this.frame.get(i+1).getThrow1() + this.frame.get(i+1).getThrow2() + 10;
 					}
 			}
-			else if(checkType(this.frame.get(i))==2){
+			else {
+//				
 				if(i==this.frame.size()-2){
 					sum = sum +  10 + this.frame.get(i+1).getThrow1();
 					return sum;
@@ -88,8 +89,9 @@ public class BowlingGame {
 				else {
 				sum= sum + 10 + this.frame.get(i+1).getThrow1();
 				
-				}
+			
 			}
+		}
 		}
 		return sum;
 		}
@@ -101,12 +103,15 @@ public class BowlingGame {
 			two_throws.setStrike(true);
 			return 1;
 		}
-		else if((two_throws.getThrow1()+two_throws.getThrow2()==10) && two_throws.getThrow2()!=0){
-			two_throws.setSpare(true);
-			return 2;
-		}
+		else {
+			if((two_throws.getThrow1()+two_throws.getThrow2()==10)){
+				two_throws.setSpare(true);
+				return 2;
+			}
+	
 		else return 0;
 	}
+}
 
 
 	public boolean verifyStringFormat(String game) {
