@@ -8,13 +8,13 @@ public class Frame {
 	private boolean spare;
 	
 	
-	public void setStrike(boolean strike) {
-		this.strike = strike;
-	}
-	
-	public void setSpare(boolean spare) {
-		this.spare = spare;
-	}
+//	public void setStrike(boolean strike) {
+//		this.strike = strike;
+//	}
+//	
+//	public void setSpare(boolean spare) {
+//		this.spare = spare;
+//	}
 	public int getThrow1() {
 		return throw1;
 	}
