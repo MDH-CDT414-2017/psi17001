@@ -21,29 +21,32 @@ public class BowlingGame {
 	{	
 
 		this.game=game;
-		String[] frameArray = game.split("]");
-		for(String frame: frameArray)	{	
-			Frame two_throws=new Frame();
-
-			frame =frame.substring(1, frame.length());
-			
-			String[] scoresArray = frame.split(",");
-			
-			
-			if(scoresArray.length==2){
-				two_throws.setThrow1(Integer.parseInt(scoresArray[0]));
-				two_throws.setThrow2(Integer.parseInt(scoresArray[1]));
-				this.frame.add(two_throws);
-			}
-			else {
-				two_throws.setThrow1(Integer.parseInt(scoresArray[0]));
-				this.frame.add(two_throws);
-			}
-			
-		}
 	
 	}
 		
+	public void setFrame() {
+		
+			String[] frameArray = game.split("]");
+
+			for (String frame : frameArray) {
+				Frame two_throws = new Frame();
+
+				frame = frame.substring(1, frame.length());
+
+				String[] scoresArray = frame.split(",");
+
+				if (scoresArray.length == 2) {
+					two_throws.setThrow1(Integer.parseInt(scoresArray[0]));
+					two_throws.setThrow2(Integer.parseInt(scoresArray[1]));
+					this.frame.add(two_throws);
+				} else {
+					two_throws.setThrow1(Integer.parseInt(scoresArray[0]));
+					this.frame.add(two_throws);
+				}
+
+			}
+		
+	}
 	
 	
 	/** getScore method returns a score of current Bowling game or -1 if error
@@ -53,20 +56,29 @@ public class BowlingGame {
 	public int getScore() {
 		
 		if(verifyStringFormat(this.game) || verifyLastSpareStringFormat(this.game) || verifyLastStrikeStringFormat(this.game)) {
+			setFrame();
 		int sum=0;
-		
+		int iterator=0;
 		for(int i=0; i<this.frame.size();i++){
-			
+			iterator++;
+			int a,b;
+			a=this.frame.get(i).getThrow1();
+			b=this.frame.get(i).getThrow2();
+			int c=a+b;
+			if(c<=10) {
 			if(checkType(this.frame.get(i))==0){
-				sum = sum + this.frame.get(i).getThrow1() + this.frame.get(i).getThrow2();
-				}
+				
+				if(iterator<11 )
+					sum = sum + this.frame.get(i).getThrow1() + this.frame.get(i).getThrow2();
+				else return -1;
+			}
 			else if(checkType(this.frame.get(i))==1) {
 				if(i==this.frame.size()-2) {
-					
 					sum = sum + this.frame.get(i+1).getThrow1() + this.frame.get(i+1).getThrow2() + 10;
 					return sum;
-				
 				}
+				else if(i==this.frame.size()-1 ){
+					return -1;}
 					else {
 						if(this.frame.get(i+1).getThrow1()==10){
 							sum= sum + this.frame.get(i+1).getThrow1() + this.frame.get(i+2).getThrow1() + 10;
@@ -76,10 +88,16 @@ public class BowlingGame {
 					}
 			}
 			else {
-//				
+				
 				if(i==this.frame.size()-2){
+					if(this.frame.get(i+1).getThrow2()!=0) 
+					return -1;
+					else  {
 					sum = sum +  10 + this.frame.get(i+1).getThrow1();
-					return sum;
+					return sum;}
+					}
+				if(i==this.frame.size()-1 ){
+					return -1;
 					}
 				else {
 				sum= sum + 10 + this.frame.get(i+1).getThrow1();
@@ -87,11 +105,16 @@ public class BowlingGame {
 			
 			}
 		}
-		}
+	}
+		
+			else return -1;
+	}
 		return sum;
-		}
+		
+	}
 		else return -1;
 	}
+		
 	
 	public int checkType(Frame two_throws) {
 		if(two_throws.getThrow1()+two_throws.getThrow2()==10 ){	
@@ -108,15 +131,21 @@ public class BowlingGame {
 
 
 	public boolean verifyStringFormat(String game) {
+		if(game!=null)
 		return game.matches("(\\[([0-9]|10),([0-9]|10)\\]){10}");
+		else return false;
 	}
 	
 	public boolean verifyLastStrikeStringFormat(String game) {
+		if(game!=null)
 		return game.matches("(\\[([0-9]|10),([0-9]|10)\\]){10}\\[([0-9]|10),([0-9]|10)\\]");
+		else return false;
 	}
 	
 	public boolean verifyLastSpareStringFormat(String game) {
+		if(game!=null)
 		return game.matches("(\\[([0-9]|10),([0-9]|10)\\]){10}\\[([0-9]|10)\\]");
+		else return false;
 	}
 
 }
